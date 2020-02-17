@@ -1,0 +1,55 @@
+*
+/
+ID: iiii
+=
+INT: 3
+Error: @33
+;
+KW: int
+ID: g
+INT: 4
+ID: cd
+(
+KW: int
+ID: u
+,
+KW: int
+ID: v
+)
+{
+KW: if
+(
+ID: v
+==
+>=
+INT: 0
+)
+KW: return
+ID: u
+;
+KW: else
+ID: ret
+Error: _urn
+ID: gcd
+(
+ID: vxxxxxxvvvvv
+,
+ID: u
+-
+ID: u
+/
+ID: v
+*
+ID: v
+)
+;
+Error: !
+}
+KW: return
+KW: void
+KW: while
+KW: void
+ID: main
+(
+)
+!=
