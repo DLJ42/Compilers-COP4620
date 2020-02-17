@@ -1,2 +1,2 @@
-# Compilers-COP4620-
+# Compilers COP4620
 Projects for Eggen's Compilers class
