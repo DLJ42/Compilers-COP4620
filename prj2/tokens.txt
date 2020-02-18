@@ -1,0 +1,143 @@
+*
+/
+ID: iiii
+=
+INT: 3
+Error: @33
+;
+KW: int
+ID: g
+INT: 4
+ID: cd
+(
+KW: int
+ID: u
+,
+KW: int
+ID: v
+)
+{
+KW: if
+(
+ID: v
+==
+>=
+INT: 0
+)
+KW: return
+ID: u
+;
+KW: else
+ID: ret
+Error: _urn
+ID: gcd
+(
+ID: vxxxxxxvvvvv
+,
+ID: u
+-
+ID: u
+/
+ID: v
+*
+ID: v
+)
+;
+Error: !
+}
+KW: return
+KW: void
+KW: while
+KW: void
+ID: main
+(
+)
+!=
+ID: this
+Error: @ll
+/
+ID: is
+ID: a
+KW: if
+(
+Error: !main
+(
+)
+)
+{
+ID: do
+ID: some
+ID: stuff
+ID: mmk
+Error: !please
+ID: this
+Error: .this.this123
+}
+ID: ifx
+(
+)
+ID: a
+=
+ID: b
++
+ID: c
+ID: c
+=
+ID: a
+*
+ID: b
+ID: b
+=
+ID: c
+/
+ID: a
+==
+==
+=
+==
+==
+==
+=
+ID: unknown
+ID: symbols
+ID: uyb
+Error: ~evf
+ID: nev
+Error: `kjn
+ID: jknk
+Error: !!kjnk
+ID: bnjhb
+Error: @hbjhb
+ID: hbjh
+Error: #jhbj
+ID: mkm
+Error: !iuni
+ID: jhn
+Error: $ytvy
+ID: hb
+Error: %hb
+ID: HB
+Error: ^jhnk
+ID: jhb
+Error: &jhbj
+ID: jhbjh
+-
+ID: hjbj
+ID: bjbj
+Error: ?iuniun
+ID: hubjb
+Error: .iuniu
+ID: ybvhjb
+Error: 'bjhb
+ID: vhgv
+Error: "hbjhb
+ID: vghvh
+Error: :jhbjhb
+/
+;
+Error: :'"`~1!2@3#4$5%6^7&8
+*
+INT: 9
+(
+INT: 0
+)
