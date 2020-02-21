@@ -1,3 +1,19 @@
-KW: int
-ID: var
+KW: void
+ID: main
+(
+KW: void
+)
+{
+KW: void
+ID: x
 ;
+KW: int
+ID: y
+;
+ID: x
+=
+ID: x
++
+INT: 1
+;
+}
