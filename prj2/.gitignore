@@ -1,0 +1,2 @@
+# omit .vscode/ directory from git commits
+/.vscode

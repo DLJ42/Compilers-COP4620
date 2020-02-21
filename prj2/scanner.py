@@ -35,7 +35,7 @@ def scanner():
                 # remove leading/trailing \n
                 line = line.strip()
                 if line:
-                    print("INPUT: " + line)
+                    #print("INPUT: " + line)
                 
                 # split each line into an array of strings using specified regex delimeters
                 line_array = re.split(r'([a-zA-Z]+|\d+|\-|\+|\=\=|\=|\<\=|\<|\>\=|\>|\!\=|\s+|//|\/\*?|\*\/?|\;|\,|\(|\)|\[|\]|\{|\}|[\@\_\~\`\!\#\$\%\^\&\:\|\\\"\'\.\?a-zA-Z\d]+[a-zA-Z\d]*)', line)
@@ -78,34 +78,34 @@ def scanner():
                                 continue
                             # if string matches a keyword
                             elif string in keywords:
-                                print("KW: " + string)
+                                #print("KW: " + string)
                                 f1.writelines("KW: " + string + "\n")
                             # if string is an operator
                             elif string in operators:
-                                print(string)
+                                #print(string)
                                 f1.writelines(string + "\n")
                             # if string is a relation
                             elif string in relation:
-                                print(string)
+                                #print(string)
                                 f1.writelines(string + "\n")
                             # if string is special character not in operators or relations
                             elif string in special:
                                 if len(string) > 1:
                                     for c in string:
-                                        print(c)
+                                        #print(c)
                                         f1.writelines(c + "\n")
                                 else:
-                                    print(string)
+                                    #print(string)
                                     f1.writelines(string + "\n")
                             elif re.match(r'[a-zA-Z]+', string):
-                                print("ID: " + string)
+                                #print("ID: " + string)
                                 f1.writelines("ID: " + string + "\n")
                             # if character is a NUM (a numeric-only string)
                             elif re.match(r'^[0-9]+$', string):
-                                print("INT: " + string)
+                                #print("INT: " + string)
                                 f1.writelines("INT: " + string + "\n") 
                             else:
-                                print("Error: " + string)
+                                #print("Error: " + string)
                                 f1.writelines("Error: " + string + "\n")
     except:
         print("No input file given")    
