@@ -34,7 +34,7 @@ def scanner():
 
                 # remove leading/trailing \n
                 line = line.strip()
-                if line:
+                #if line:
                     #print("INPUT: " + line)
                 
                 # split each line into an array of strings using specified regex delimeters
