@@ -5,7 +5,7 @@ import os
 
 # call scanner to generate token list
 scanner.scanner()
-print("- - - - - - - - - - - - - - - - - - - - - - -")
+#print("- - - - - - - - - - - - - - - - - - - - - - -")
 # keep track of current token being evaluated
 global i
 i = 0
@@ -24,7 +24,7 @@ with open("tokens.txt", "r") as f2:
             token_type = token.split(" ")[0]
         else:
             token_value = token
-            toke_type = None
+            token_type = token
         token_value = token_value.strip()
         token_type = token_type.strip()
 
@@ -36,7 +36,8 @@ token_list_value.append("$")
 token_list_type.append("$")
 #print(len(token_list_type))
 #print(len(token_list_value))
-print(token_list_value)
+#print(token_list_value)
+#print(token_list_type)
 
 def exitProgram():
     global i
@@ -155,7 +156,6 @@ def params():
     else:
         exitProgram()
 
-
 # paramsPrime() -> ID param() paramList() | EPSILON
 def paramsPrime():
     global i
@@ -170,7 +170,6 @@ def paramsPrime():
     else:
         exitProgram()
 
-
 # paramList() -> , paramListPrime() | EPSILON
 def paramList():
     global i
@@ -183,8 +182,6 @@ def paramList():
         return
     else:
         exitProgram()
-
-
 
 # paramListPrime() -> int ID param() paramList() | void ID param() paramList()
 def paramListPrime():
@@ -224,7 +221,7 @@ def param():
         else:
             exitProgram()
     # check follow set because of epsilon --> first(paramList()) in follow(param())
-    elif token_list_value[i] == ",":
+    elif token_list_value[i] in ["[", ")"]:
         return
     else:
         exitProgram()
@@ -245,7 +242,6 @@ def compoundStmt():
             exitProgram()
     else:
         exitProgram()
-
 
 # localDeclarations() -> int ID varDeclaration() localDeclarations() | void ID varDeclaration() localDeclarations() | EPSILON
 def localDeclarations():
@@ -269,12 +265,11 @@ def localDeclarations():
             i = i + 1
         else:
             exitProgram()
-        
         varDeclaration()
         localDeclarations()
     # check follow set cause of epsilon --> first(statementList()) in  follow(localDeclarations())
     # } added --> prob wrong
-    elif token_list_value[i] in [";", "(", "if", "return", "{", "while"] or token_list_type[i] == "INT:" or token_list_type[i] == "ID:":
+    elif token_list_value[i] in [";", "(", "if", "return", "{", "while"] or token_list_type[i] in ["INT:", "ID:"]:
         return
     else:
         exitProgram()
@@ -283,7 +278,7 @@ def localDeclarations():
 def statementList():
     global i
     # first(statement())
-    if token_list_value[i] in [";", "(", "if", "return", "{", "while"] or token_list_type[i] == "INT:" or token_list_type[i] == "ID:":
+    if token_list_value[i] in [";", "(", "if", "return", "{", "while"] or token_list_type[i] in ["INT:", "ID:"]:
         statement()
         statementList()
     # elif next token is in follow(statementList())
@@ -291,10 +286,11 @@ def statementList():
         return
     else:
         exitProgram()
+
 # statement() -> expressionStmt() | compoundStmt() | selectionStmt() | iterationStmt() | returnStmt()
 def statement():
     global i
-    if token_list_value[i] in [";", "("] or token_list_type[i] == "INT:" or token_list_type[i] == "ID:":
+    if token_list_value[i] in [";", "("] or token_list_type[i] in ["INT:", "ID:"]:
         expressionStmt()
     elif token_list_value[i] == "{":
         compoundStmt()
@@ -306,6 +302,7 @@ def statement():
         returnStmt()
     else:
         exitProgram()
+
 # expressionStmt() -> expression() ; | ;
 def expressionStmt():
     global i
@@ -317,6 +314,7 @@ def expressionStmt():
         return
     else:
         exitProgram()
+
 # selectionStmt() -> if ( expression() ) statement() selectionStmtPrime()
 def selectionStmt():
     global i
@@ -336,6 +334,7 @@ def selectionStmt():
             exitProgram()
         statement()
         selectionStmtPrime()
+
 # selectionStmtPrime() -> else statement() | EPSILON
 def selectionStmtPrime():
     global i
@@ -369,6 +368,7 @@ def iterationStmt():
         statement()
     else:
         exitProgram()
+
 # returnStmt() -> return returnStmtPrime()
 def returnStmt():
     global i
@@ -378,6 +378,7 @@ def returnStmt():
         returnStmtPrime()
     else:
         exitProgram()
+
 # returnStmtPrime() -> ; | expression() ;
 def returnStmtPrime():
     global i
@@ -404,6 +405,7 @@ def expression():
         simpleExpression()
     else:
         exitProgram()
+
 # expressionPrime() -> var() expressionPrimePrime() | factorPrime() term() additiveExpressionPrime() simpleExpressionPrime()
 def expressionPrime():
     global i
@@ -467,6 +469,7 @@ def simpleExpressionPrime():
         return
     else:
         exitProgram() 
+
 # simpleExpressionPrimePrime() -> additiveExpression() | ID simpleExpressionPrimePrimePrime()
 def simpleExpressionPrimePrime():
     global i
@@ -480,6 +483,7 @@ def simpleExpressionPrimePrime():
         simpleExpressionPrimePrime()
     else:
         exitProgram()
+
 # simpleExpressionPrimePrimePrime() -> factorPrime() term() additiveExpressionPrime() | var() term() additiveExpressionPrime()
 def simpleExpressionPrimePrimePrime():
     global i
@@ -493,6 +497,7 @@ def simpleExpressionPrimePrimePrime():
         additiveExpressionPrime()
     else:
         exitProgram()
+
 # relop() -> <= | < | > | >= | == | !=
 def relop():
     global i
@@ -511,6 +516,7 @@ def additiveExpression():
         additiveExpressionPrime()
     else:
         exitProgram()
+
 # additiveExpressionPrime() -> addop() additiveExpressionPrimePrime() | EPSILON
 def additiveExpressionPrime():
     global i
@@ -521,6 +527,7 @@ def additiveExpressionPrime():
     elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
     else:
+        #print("please work")
         exitProgram()
     
 # additiveExpressionPrimePrime() -> factor() term() additiveExpressionPrime() | ID additiveExpressionPrimePrimePrime()
@@ -552,6 +559,7 @@ def additiveExpressionPrimePrimePrime():
         additiveExpressionPrime()
     else:
         exitProgram()
+
 # addop() -> + | -
 def addop():
     global i
@@ -563,6 +571,7 @@ def addop():
         i = i + 1
     else:
         exitProgram()
+
 # term() -> mulop() termPrime() | EPSILON
 # A butt lives here
 def term():
@@ -575,8 +584,9 @@ def term():
     elif token_list_value[i] in ["+", "-", "<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
     else:
-        print("please work")
+        #print("please work")
         exitProgram()
+
 # termPrime() -> factor() term() | ID termPrimePrime()
 def termPrime():
     global i
@@ -591,6 +601,7 @@ def termPrime():
         termPrimePrime()
     else:
         exitProgram()
+
 # termPrimePrime() -> factorPrime() term() | var() term()
 def termPrimePrime():
     global i
@@ -602,6 +613,7 @@ def termPrimePrime():
         term()
     else:
         exitProgram()
+
 # mulop() -> * | /
 def mulop():
     global i
@@ -613,6 +625,7 @@ def mulop():
         i = i + 1
     else:
         exitProgram()
+
 # factor() -> ( expression() ) | NUM
 def factor():
     global i
@@ -630,6 +643,7 @@ def factor():
         i = i + 1
     else:
         exitProgram()
+
 # factorPrime() -> ( args() )
 def factorPrime():
     global i
@@ -644,6 +658,7 @@ def factorPrime():
             exitProgram()
     else:
         exitProgram()
+
 # args() -> expression() argList() | EPSILON
 def args():
     global i
@@ -655,6 +670,7 @@ def args():
         return
     else:
         exitProgram()
+
 # argList() -> , expression() argList() | EPSILON
 def argList():
     global i
