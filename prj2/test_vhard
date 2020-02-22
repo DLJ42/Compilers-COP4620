@@ -1,0 +1,27 @@
+/* assumes your lexer is working properly */
+
+void sub(int a, int b) {
+	a - b;
+	a > b;
+	a <= b;
+	return a;
+}
+
+void yeetsub(int a) {
+	return y;
+}
+
+void newsub(void) {}
+
+int foointvoid (int a, int b[], int c, int d[]) {
+	int e;
+	int m;
+	int f;
+	int g;
+	if (a + b)
+		if (b[1+2] > b[4])
+			main();
+		else {
+			int f[9];
+		}
+}

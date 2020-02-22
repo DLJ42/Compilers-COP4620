@@ -1,19 +1,22 @@
 KW: void
-ID: main
+ID: sub
 (
-KW: void
+KW: int
+ID: a
+,
+KW: int
+ID: b
 )
 {
-KW: void
-ID: x
-;
 KW: int
-ID: y
+ID: a
 ;
-ID: x
+ID: a
+-
+ID: b
+;
+ID: a
 =
-ID: x
-+
-INT: 1
+ID: b
 ;
 }
