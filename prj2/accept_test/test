@@ -1,3 +1,7 @@
+int ienfnv(void) {
+	sub(hello());
+}
+
 int sub(int a) {
 	int a;
     a = a + 1;

@@ -3,6 +3,8 @@ import re as re
 import scanner
 import os
 
+## Check jons reject checks #14, #25
+
 # elif token_list_value[i] == ";":
 #     return
 
@@ -332,8 +334,11 @@ def expressionStmt():
     if token_list_value[i] == "(" or token_list_type[i] in ["INT:", "ID:"]:
         print("I am in expressionStmt() and my token is: " + token_list_value[i])
         expression()
-        # consume ";"
-        i = i + 1
+        if token_list_value[i] == ";":
+            # consume ";"
+            i = i + 1
+        else:
+            exitProgram()
     elif token_list_value[i] == ";":
         # consume ";"
         i = i + 1
@@ -419,12 +424,17 @@ def returnStmtPrime():
 # expression() -> ID expressionPrime() | simpleExpression()
 def expression():
     global i
-    print("I am in expression() and my token is: " + token_list_type[i])
+    print("I am in expression() and my token is: " + token_list_value[i])
     if token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
         print("I am in expression() and my token is: " + token_list_value[i])
         expressionPrime()
+        if token_list_value[i] in [",", ")", "]", ";"]:
+            return
+        # if token_list_value[i] in ["[", "(", "=", "*", "/", "<=", "<", ">", ">=", "==", "!=", "+", "-"]:
+        # elif token_list_value[i] in [",", ")", "]", ";"]:
+        #     return
     # elif next token is in first(simpleExpression())
     elif token_list_value[i] == "(" or token_list_type[i] == "INT:":
         simpleExpression()
@@ -471,6 +481,9 @@ def expressionPrimePrime():
         print("I have just left additiveExpressionPrime() " + token_list_value[i])
         simpleExpressionPrime()
         print("I have just left simpleExpressionPrime() " + token_list_value[i])
+    # elif next token is in follow(expressionPrimePrime())
+    elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
+        return
     else:
         print("error in expressionPrimePrime()")
         exitProgram() 
@@ -484,10 +497,10 @@ def var():
         i = i + 1
         print("I am in var() and my token is: " + token_list_value[i])
         expression()
-        print(token_list_value[i])
+        print("I am in var() and my token is: " + token_list_value[i])
         # consume "]"
         i = i + 1
-        print(token_list_value[i])
+        print("I am in var() and my token is: " + token_list_value[i])
     # elif next token in follow(var())
     elif token_list_value[i] in ["*", "/", "+", "-", "=", "<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
@@ -633,6 +646,7 @@ def addop():
 # A butt lives here
 def term():
     global i
+    print(token_list_value[i])
     # if next token in first(mulop())
     if token_list_value[i] in ["*", "/"]:
         mulop()
@@ -667,6 +681,9 @@ def termPrimePrime():
     elif token_list_value[i] in ["[", "*", "/"]:
         var()
         term()
+    # include follow(termPrimePrime()) +, -, <=, <, >, >=, ==, !=, ,, ), ], ;
+    elif token_list_value in ["+", "-", "<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
+        return
     else:
         exitProgram()
 
@@ -704,6 +721,7 @@ def factorPrime():
     if token_list_value[i] == "(":
         # consume "("
         i = i + 1
+        print("akjwnvijn " + token_list_value[i])
         args()
         if token_list_value[i] == ")":
             # consume ")"
@@ -716,6 +734,7 @@ def args():
     global i
     if token_list_value[i] == "(" or token_list_type[i] in ["ID:", "INT:"]:
         expression()
+        print("I have just left expression")
         argList()
     # elif next token in follow(args())
     elif token_list_value[i] == ")":
@@ -727,6 +746,7 @@ def args():
 def argList():
     global i
     if token_list_value[i] == ",":
+        i = i + 1
         expression()
         argList()
     elif token_list_value[i] == ")":

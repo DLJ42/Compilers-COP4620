@@ -1,0 +1,22 @@
+ID: KW
+Error: :
+KW: void
+ID: ID
+Error: :
+ID: main
+(
+ID: KW
+Error: :
+KW: void
+)
+{
+ID: KW
+Error: :
+KW: else
+{
+ID: ID
+Error: :
+ID: abc
+;
+}
+}

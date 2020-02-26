@@ -1,110 +1,1020 @@
-KW: void
-ID: sub
+ID: import
+ID: re
+ID: as
+ID: re
+ID: import
+ID: sys
+ID: keywords
+=
 (
-KW: int
-ID: a
+Error: "else"
 ,
-KW: int
-ID: b
-)
-{
-ID: a
--
-ID: b
-;
-ID: a
->
-ID: b
-;
-ID: a
-<=
-ID: b
-;
-KW: return
-ID: a
-;
-}
-KW: void
-ID: yeetsub
-(
-KW: int
-ID: a
-)
-{
-KW: return
-ID: y
-;
-}
-KW: void
-ID: newsub
-(
-KW: void
-)
-{
-}
-KW: int
-ID: foointvoid
-(
-KW: int
-ID: a
+Error: "if"
 ,
-KW: int
-ID: b
-[
-]
+Error: "int"
 ,
-KW: int
-ID: c
+Error: "void"
 ,
-KW: int
-ID: d
-[
-]
+Error: "while"
+,
+Error: "return"
 )
-{
-KW: int
-ID: e
-;
-KW: int
-ID: m
-;
-KW: int
-ID: f
-;
-KW: int
-ID: g
-;
-KW: if
+ID: operators
+=
 (
-ID: a
+Error: "
 +
-ID: b
+Error: "
+,
+Error: "
+-
+Error: "
+,
+Error: "
+*
+Error: "
+,
+Error: "
+/
+Error: "
 )
-KW: if
+ID: relation
+=
 (
-ID: b
+Error: "
+<
+Error: "
+,
+Error: "
+>
+Error: "
+,
+Error: "
+=
+Error: "
+,
+Error: "
+<=
+Error: "
+,
+Error: "
+>=
+Error: "
+,
+Error: "
+==
+Error: "
+,
+Error: "!
+=
+Error: "
+)
+ID: special
+=
+(
+Error: "
+;
+Error: "
+,
+Error: "
+,
+Error: "
+,
+Error: "
+(
+Error: "
+,
+Error: "
+)
+Error: "
+,
+Error: "
+[
+Error: "
+,
+Error: "
+]
+Error: "
+,
+Error: "
+{
+Error: "
+,
+Error: "
+}
+Error: "
+,
+Error: "
+Error: "
+,
+Error: "
+Error: #symbols
+=
+(
+Error: "
++
+Error: "
+,
+Error: "
+-
+Error: "
+,
+Error: "
+*
+Error: "
+,
+Error: "
+/
+Error: "
+,
+Error: "
+<
+Error: "
+,
+Error: "
+<=
+Error: "
+,
+Error: "
+>
+Error: "
+,
+Error: "
+>=
+Error: "
+,
+Error: "
+==
+Error: "
+,
+Error: "!
+=
+Error: "
+,
+Error: "
+=
+Error: "
+,
+Error: "
+;
+Error: "
+,
+Error: "
+,
+Error: "
+,
+Error: "
+(
+Error: "
+,
+Error: "
+)
+Error: "
+,
+Error: "
+[
+Error: "
+,
+Error: "
+]
+Error: "
+,
+Error: "
+{
+Error: "
+,
+Error: "
+}
+Error: "
+,
+Error: "
+Error: "
+)
+Error: #
+ID: read
+ID: input
+ID: file
+ID: and
+ID: check
+KW: if
+ID: its
+ID: given
+ID: at
+ID: runtime
+ID: ex
+Error: .
+Error: "pgm
+ID: input
+Error: "
+ID: def
+ID: scanner
+(
+)
+Error: :
+ID: try
+Error: :
+ID: input
+Error: _file
+=
+ID: sys
+Error: .argv
 [
 INT: 1
-+
-INT: 2
 ]
->
-ID: b
-[
-INT: 4
-]
+Error: #
+ID: Read
+ID: each
+ID: input
+ID: line
+ID: into
+ID: variable
+ID: with
+ID: open
+(
+ID: input
+Error: _file
+,
+Error: "r"
 )
-ID: main
+ID: as
+ID: f
+Error: :
+ID: input
+Error: _code
+=
+ID: f
+Error: .readlines
 (
 )
-;
+Error: #
+ID: analysize
+ID: each
+ID: line
+ID: and
+ID: tokenize
+ID: recognized
+ID: character
+ID: string
+(
+ID: no
+ID: floats
+,
+ID: no
+ID: pointers
+,
+ID: no
+ID: signed
+ID: ints
+)
+Error: #
+ID: ignore
+ID: comments
+Error: #
+ID: white
+ID: space
+ID: separates
+ID: IDs
+,
+ID: NUMS
+,
+ID: and
+ID: keywords
+Error: #
+ID: ex
+Error: .
+ID: tokens
+Error: :
+ID: keywords
+(
 KW: else
-{
+,
+KW: if
+,
 KW: int
-ID: f
+,
+KW: void
+,
+KW: while
+,
+KW: return
+)
+,
+ID: IDs
+(
 [
+ID: a
+-
+ID: zA
+-
+ID: Z
+]
++
+)
+Error: #
+ID: ID
+=
+INT: 1
+ID: or
+ID: more
+ID: letters
+Error: #
+ID: NUMS
+=
+INT: 1
+ID: or
+ID: more
+ID: digits
+Error: #
+ID: spaces
+ID: are
+ID: delimeters
+ID: for
+ID: tokens
+(
+ID: i
+Error: .e.
+ID: spaces
+ID: separate
+ID: tokens
+)
+Error: #
+ID: read
+ID: each
+ID: line
+ID: character
+ID: by
+ID: character
+ID: comment
+Error: _started
+=
+ID: False
+ID: with
+ID: open
+(
+Error: "tokens.txt"
+,
+Error: "w"
+)
+ID: as
+ID: f
+INT: 1
+Error: :
+Error: #
+ID: loop
+ID: through
+ID: each
+ID: line
+ID: of
+ID: code
+ID: for
+ID: line
+ID: in
+ID: input
+Error: _code:
+Error: #print
+(
+ID: line
+)
+Error: #
+ID: remove
+ID: leading
+/
+ID: trailing
+Error: \n
+ID: line
+=
+ID: line
+Error: .strip
+(
+)
+Error: #if
+ID: line
+Error: :
+Error: #print
+(
+Error: "INPUT:
+Error: "
++
+ID: line
+)
+Error: #
+ID: split
+ID: each
+ID: line
+ID: into
+ID: an
+ID: array
+ID: of
+ID: strings
+ID: using
+ID: specified
+ID: regex
+ID: delimeters
+ID: line
+Error: _array
+=
+ID: re
+Error: .split
+(
+ID: r
+Error: '
+(
+[
+ID: a
+-
+ID: zA
+-
+ID: Z
+]
++
+Error: |\d
++
+Error: |\
+-
+Error: |\
++
+Error: |\
+=
+Error: \
+=
+Error: |\
+=
+Error: |\
+<
+Error: \
+=
+Error: |\
+<
+Error: |\
+>
+Error: \
+=
+Error: |\
+>
+Error: |\!\
+=
+Error: |\s
++
+Error: |
+Error: #line_array
+=
+ID: re
+Error: .split
+(
+ID: r
+Error: '
+(
+Error: .
+*
+[
+ID: a
+-
+ID: zA
+-
+ID: Z
+]
++
+Error: .
+*
+)
+Error: '
+,
+ID: line
+)
+Error: #line_array
+=
+ID: re
+Error: .split
+(
+ID: r
+Error: '
+(
+[
+ID: a
+-
+ID: zA
+-
+ID: Z
+]
++
+Error: |\
+-
+Error: |\
++
+Error: |\
+=
+Error: \
+=
+Error: |\
+=
+Error: |\
+<
+Error: \
+=
+Error: |\
+<
+Error: |\
+>
+Error: \
+=
+Error: |\
+>
+Error: |\!\
+=
+Error: |\s
++
+Error: |
+Error: #line_array
+=
+ID: re
+Error: .split
+(
+ID: r
+Error: '
+(
+Error: \s
++
+Error: |
+Error: #line_array
+=
+ID: re
+Error: .split
+(
+ID: r
+Error: '
+(
+Error: \s
++
+Error: |
+Error: #
+ID: rebuild
+ID: code
+ID: line
+ID: array
+ID: after
+ID: removing
+ID: elements
+ID: that
+ID: are
+ID: empty
+ID: or
+ID: filled
+ID: with
+ID: one
+ID: or
+ID: more
+ID: spaces
+ID: line
+Error: _array
+=
+Error: '
+Error: '.join
+(
+ID: line
+Error: _array
+)
+Error: .split
+(
+)
+Error: #print
+(
+ID: line
+Error: _array
+)
+Error: #
+KW: if
+ID: line
+ID: of
+ID: code
+ID: is
+ID: empty
+,
+ID: skip
+ID: it
+KW: if
+ID: len
+(
+ID: line
+Error: _array
+)
+==
+INT: 0
+Error: :
+ID: continue
+KW: else
+Error: :
+ID: for
+ID: string
+ID: in
+ID: line
+Error: _array:
+KW: if
+ID: comment
+Error: _started
+==
+ID: True
+Error: :
+KW: if
+ID: re
+Error: .match
+(
+ID: r
+Error: '^.?\
+*
+Error: \
+/
+Error: $'
+,
+ID: string
+)
+Error: :
+ID: comment
+Error: _started
+=
+ID: False
+Error: #print
+(
+Error: "^^
+ID: ended
+ID: comment
+Error: "
+)
+KW: else
+Error: :
+ID: continue
+KW: else
+Error: :
+Error: #
+KW: if
+ID: sttring
+ID: is
+ID: an
+ID: open
+/
+ID: close
+ID: comment
+(
+ID: e
+Error: .g.
+)
+KW: if
+ID: re
+Error: .match
+(
+ID: r
+Error: '^\
+/
+Error: \
+*
+Error: .
+*
+Error: \
+*
+Error: \
+/
+Error: $'
+,
+ID: string
+)
+Error: :
+ID: continue
+Error: #
+KW: if
+ID: string
+ID: is
+ID: a
+ID: single
+ID: line
+ID: comment
+ID: omit
+ID: everything
+ID: after
+ID: it
+(
+ID: break
+ID: out
+ID: of
+ID: loop
+)
+ID: elif
+ID: re
+Error: .match
+(
+ID: r
+Error: '
+ID: break
+Error: #
+KW: if
+ID: string
+ID: started
+ID: a
+ID: multi
+-
+ID: line
+ID: comment
+ID: elif
+ID: re
+Error: .match
+(
+ID: r
+Error: '^\
+/
+Error: \
+*
++
+Error: $'
+,
+ID: string
+)
+Error: :
+Error: #print
+(
+Error: "^^
+ID: comment
+ID: started
+Error: "
+)
+ID: comment
+Error: _started
+=
+ID: True
+Error: #
+KW: if
+ID: string
+ID: ends
+ID: multiline
+ID: comment
+ID: elif
+ID: re
+Error: .match
+(
+ID: r
+Error: '^.
++
+Error: \
+*
+Error: \
+/
+Error: '
+,
+ID: string
+)
+ID: and
+ID: comment
+Error: _started
+==
+ID: True
+Error: :
+Error: #print
+(
+Error: "^^
+ID: comment
+ID: ended
+Error: "
+)
+ID: continue
+Error: #
+KW: if
+ID: string
+ID: matches
+ID: a
+ID: keyword
+ID: elif
+ID: string
+ID: in
+ID: keywords
+Error: :
+Error: #print
+(
+Error: "KW:
+Error: "
++
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+Error: "KW:
+Error: "
++
+ID: string
++
+Error: "\n"
+)
+Error: #
+KW: if
+ID: string
+ID: is
+ID: an
+ID: operator
+ID: elif
+ID: string
+ID: in
+ID: operators
+Error: :
+Error: #print
+(
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+ID: string
++
+Error: "\n"
+)
+Error: #
+KW: if
+ID: string
+ID: is
+ID: a
+ID: relation
+ID: elif
+ID: string
+ID: in
+ID: relation
+Error: :
+Error: #print
+(
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+ID: string
++
+Error: "\n"
+)
+Error: #
+KW: if
+ID: string
+ID: is
+ID: special
+ID: character
+ID: not
+ID: in
+ID: operators
+ID: or
+ID: relations
+ID: elif
+ID: string
+ID: in
+ID: special
+Error: :
+KW: if
+ID: len
+(
+ID: string
+)
+>
+INT: 1
+Error: :
+ID: for
+ID: c
+ID: in
+ID: string
+Error: :
+Error: #print
+(
+ID: c
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+ID: c
++
+Error: "\n"
+)
+KW: else
+Error: :
+Error: #print
+(
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+ID: string
++
+Error: "\n"
+)
+ID: elif
+ID: re
+Error: .match
+(
+ID: r
+Error: '
+[
+ID: a
+-
+ID: zA
+-
+ID: Z
+]
++
+Error: '
+,
+ID: string
+)
+Error: :
+Error: #print
+(
+Error: "ID:
+Error: "
++
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+Error: "ID:
+Error: "
++
+ID: string
++
+Error: "\n"
+)
+Error: #
+KW: if
+ID: character
+ID: is
+ID: a
+ID: NUM
+(
+ID: a
+ID: numeric
+-
+ID: only
+ID: string
+)
+ID: elif
+ID: re
+Error: .match
+(
+ID: r
+Error: '^
+[
+INT: 0
+-
 INT: 9
 ]
-;
-}
-}
++
+Error: $'
+,
+ID: string
+)
+Error: :
+Error: #print
+(
+Error: "INT:
+Error: "
++
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+Error: "INT:
+Error: "
++
+ID: string
++
+Error: "\n"
+)
+KW: else
+Error: :
+Error: #print
+(
+Error: "Error:
+Error: "
++
+ID: string
+)
+ID: f
+INT: 1
+Error: .writelines
+(
+Error: "Error:
+Error: "
++
+ID: string
++
+Error: "\n"
+)
+ID: except
+Error: :
+ID: print
+(
+Error: "No
+ID: input
+ID: file
+ID: given
+Error: "
+)
