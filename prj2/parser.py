@@ -313,8 +313,10 @@ def statement():
         expressionStmt()
         print("I am in statement() and my token is: " + token_list_value[i])
     elif token_list_value[i] == "{":
+        print("I am in statement() and my token is: " + token_list_value[i])
         compoundStmt()
     elif token_list_value[i] == "if":
+        #print("I am in statement() and my token is: " + token_list_value[i])
         selectionStmt()
     elif token_list_value[i] == "while":
         iterationStmt()
@@ -347,6 +349,7 @@ def selectionStmt():
         if token_list_value[i] == "(":
             # consume "("
             i = i + 1
+            print("usybecukby")
             expression()
         #print("I am in selectionStmt() and my token is: " + token_list_value[i])
         print("I am in selectionStmt() and my token is: " + token_list_value[i])
@@ -416,7 +419,7 @@ def returnStmtPrime():
 # expression() -> ID expressionPrime() | simpleExpression()
 def expression():
     global i
-    print("I am in expression() and my token is: " + token_list_value[i])
+    print("I am in expression() and my token is: " + token_list_type[i])
     if token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
@@ -447,8 +450,8 @@ def expressionPrime():
     #
     # temp fix
     #
-    # elif token_list_value[i] == ";":
-    #     return
+    elif token_list_value[i] in [",", ")", "]", ";"]:
+        return
     else:
         exitProgram()
 
@@ -519,7 +522,9 @@ def simpleExpressionPrimePrime():
     elif token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
+        print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
         simpleExpressionPrimePrimePrime()
+        print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
     else:
         exitProgram()
 
@@ -534,6 +539,8 @@ def simpleExpressionPrimePrimePrime():
         var()
         term()
         additiveExpressionPrime()
+    elif token_list_value[i] in [",", ")", "]", ";"]:
+        return
     else:
         exitProgram()
 
@@ -603,7 +610,8 @@ def additiveExpressionPrimePrimePrime():
         var()
         term()
         additiveExpressionPrime()
-    elif token_list_value[i] == ";":
+    # include epsilon transition because var(), term(), and addExpPrime() can be null <=, <, >, >=, ==, !=, ,, ), ], ;
+    elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
     else:
         print("error in additiveExpressionPrimePrimePrime()")

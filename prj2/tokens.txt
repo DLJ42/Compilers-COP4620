@@ -1,104 +1,110 @@
-KW: int
+KW: void
 ID: sub
 (
 KW: int
 ID: a
-)
-{
-KW: int
-ID: a
-;
-ID: a
-=
-ID: a
-+
-INT: 1
-;
-}
-KW: int
-ID: hello
-(
-KW: int
-ID: x
 ,
 KW: int
-ID: y
+ID: b
 )
 {
-KW: int
-ID: x
+ID: a
+-
+ID: b
 ;
-KW: int
-ID: y
-;
-}
-KW: void
-ID: boob
-(
-KW: void
-)
-{
-;
-;
-;
-}
-KW: void
-ID: red
-(
-KW: void
-)
-{
-INT: 2
-<
-INT: 2
-;
-INT: 2
+ID: a
 >
-INT: 2
+ID: b
 ;
-INT: 2
-!=
-INT: 2
-;
-INT: 2
+ID: a
 <=
-INT: 2
+ID: b
 ;
-INT: 2
->=
-INT: 2
-;
-INT: 2
-==
-INT: 2
+KW: return
+ID: a
 ;
 }
 KW: void
-ID: cancer
+ID: yeetsub
+(
+KW: int
+ID: a
+)
+{
+KW: return
+ID: y
+;
+}
+KW: void
+ID: newsub
 (
 KW: void
 )
 {
-KW: if
-(
-ID: x
-)
-ID: y
-;
-KW: if
-(
-ID: x
-)
-ID: y
-;
-KW: else
-ID: z
-;
 }
-KW: void
+KW: int
+ID: foointvoid
+(
+KW: int
+ID: a
+,
+KW: int
+ID: b
+[
+]
+,
+KW: int
+ID: c
+,
+KW: int
+ID: d
+[
+]
+)
+{
+KW: int
+ID: e
+;
+KW: int
+ID: m
+;
+KW: int
+ID: f
+;
+KW: int
+ID: g
+;
+KW: if
+(
+ID: a
++
+ID: b
+)
+KW: if
+(
+ID: b
+[
+INT: 1
++
+INT: 2
+]
+>
+ID: b
+[
+INT: 4
+]
+)
 ID: main
 (
-KW: void
 )
+;
+KW: else
 {
+KW: int
+ID: f
+[
+INT: 9
+]
+;
+}
 }

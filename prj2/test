@@ -6,6 +6,7 @@ int sub(int a) {
 int hello(int x, int y) {
 	int x;
 	int y;
+	x > y;
 }
 
 void boob(void) {
@@ -21,6 +22,11 @@ void red(void) {
 	2 >= 2;
 	2 == 2;
 }
+
+void poop(void) {
+	2 + 2 * 2 / 2 + (2 / 2 / 2 - (2 * 2));
+}
+
 
 void cancer(void) {
 	if (x) y;
