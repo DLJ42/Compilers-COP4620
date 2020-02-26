@@ -1,22 +1,104 @@
-KW: void
+KW: int
 ID: sub
 (
 KW: int
 ID: a
-,
-KW: int
-ID: b
 )
 {
 KW: int
 ID: a
 ;
 ID: a
--
-ID: b
-;
-ID: a
 =
-ID: b
+ID: a
++
+INT: 1
 ;
+}
+KW: int
+ID: hello
+(
+KW: int
+ID: x
+,
+KW: int
+ID: y
+)
+{
+KW: int
+ID: x
+;
+KW: int
+ID: y
+;
+}
+KW: void
+ID: boob
+(
+KW: void
+)
+{
+;
+;
+;
+}
+KW: void
+ID: red
+(
+KW: void
+)
+{
+INT: 2
+<
+INT: 2
+;
+INT: 2
+>
+INT: 2
+;
+INT: 2
+!=
+INT: 2
+;
+INT: 2
+<=
+INT: 2
+;
+INT: 2
+>=
+INT: 2
+;
+INT: 2
+==
+INT: 2
+;
+}
+KW: void
+ID: cancer
+(
+KW: void
+)
+{
+KW: if
+(
+ID: x
+)
+ID: y
+;
+KW: if
+(
+ID: x
+)
+ID: y
+;
+KW: else
+ID: z
+;
+}
+KW: void
+ID: main
+(
+KW: void
+)
+{
 }

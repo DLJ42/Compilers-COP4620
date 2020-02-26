@@ -1,0 +1,11 @@
+#P5
+
+generate intermediate code -> quadruples
+
+op	opnd1	opnd2	result
+mult	a	a	t1
+
+(a*a)+a generates:
+mult a a t1
+add t1 a t2
+

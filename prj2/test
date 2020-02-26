@@ -1,6 +1,30 @@
-void sub(int a, int b) {
+int sub(int a) {
 	int a;
-	a - b;
-	a = b;
+    a = a + 1;
 }
 
+int hello(int x, int y) {
+	int x;
+	int y;
+}
+
+void boob(void) {
+	;;;
+}
+
+
+void red(void) {
+	2 < 2;
+	2 > 2;
+	2 != 2;
+	2 <= 2;
+	2 >= 2;
+	2 == 2;
+}
+
+void cancer(void) {
+	if (x) y;
+	if (x) y; else z;
+}
+
+void main(void) {}
