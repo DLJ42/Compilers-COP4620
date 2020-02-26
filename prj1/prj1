@@ -1,0 +1,189 @@
+Project 1 Compiler ---- Due 1/30/20 Thursday at 11:59 PM (nearly midnight)
+
+GRADING:
+2 points for p1 script (including making it executable)
+2 points for makefile
+2 points for typescript
+3 points for documentation
+16 points for execution
+----------------
+25 total points on project
+
+SPECIFICATIONS:
+Your project is to use the grammar definition in the appendix
+of your text to guide the construction of a lexical analyzer. 
+The lexical analyzer should return tokens as described. Keep 
+in mind these tokens will serve as the input to the parser.
+
+Page 491 and 492 should be used to guide the construction of the
+lexical analyzer. A few notable features:
+0) the project's general goal is to construct a list of tokens capable
+   of being passed to a parser.
+1) comments should be totally ignored, not passed to the parser and
+   not reported.
+2) one line comments are designated by //
+3) multiple line comments are designated by /* followed by */ in 
+   a match up fashion for the nesting.
+
+Appropriate documentation as described in the Syllabus should 
+be included. A shar file, including all files necessary, 
+(makefile, source files, test files, documentation file
+("text" in ascii format), and any other files) should be submitted 
+by the deadline using turnin as follows:
+
+   turnin fn ree4620_1
+
+By my typing    make    after unsharing your file, I should see an
+executable called anything but p1, 
+
+The analyzer will be invoked with:
+
+   p1 test_fn
+
+where p1 is the scirpt that will execute your scanner and
+test_fn is the test filename upon which lexical analysis is to be 
+done. You must supply a makefile for any language you chose to use,
+including scripting languages. 
+
+If you write in any language, you must supply at p1 file 
+that will execute your program.
+For example, such a p1 file might appear as:
+
+#!/bin/ksh
+ruby your_ruby_script $1
+
+OR
+
+#!/bin/ksh
+java your_java_pgm $1
+
+OR
+
+#!/bin/ksh
+python your_python_script $1
+
+OR
+
+#!/bin/ksh
+yourpgmname $1
+
+Note that turnin will report the 2 day late date, if the project
+is submitted on this date the penalty will be assessed.
+
+The shar file can be created as follows:
+
+shar fn1 fn2 fn3 fn4 > fn
+
+You should NOT shar a directory, i.e. when I unshar your project
+a new subdirectory should not be created.
+
+You should test the integrity of your shar by: 
+1)copying your shar to a temporary directory, 
+2)unsharing, 
+3)make, and 
+4)execute to see that all files are present and that the 
+project works appropriately. 
+
+Failure to carefully follow these guidelines will result in penalty.
+If you are not sure of some characteristic, ask to verify the 
+desired procedure.
+
+You should echo the input line followed by the output in a
+sequential fashion.
+
+Note: you may have an additional project assigned before this one is
+due.
+
+SAMPLE INPUT:
+/****This**********/
+/**************/
+/*************************
+i = 333;        ******************/       */
+
+iiii = 3@33;
+
+int g 4 cd (int u, int v)      {
+if(v == >= 0) return/*a comment*/ u;
+else ret_urn gcd(vxxxxxxvvvvv, u-u/v*v);
+       /* u-u/v*v == u mod v*/
+!
+}
+
+return void while       void main()
+
+!=
+
+SAMPLE OUTPUT:
+INPUT: /****This**********/
+INPUT: /**************/
+INPUT: /*************************
+INPUT: i = 333;        ******************/       */
+*  
+/  
+INPUT: iiii = 3@33;
+ID: iiii 
+=
+INT: 3
+Error: @33
+;
+
+INPUT: int g 4 cd (int u, int v)      {
+KW: INT
+ID: g
+INT: 4
+ID: cd
+(
+KW: INT
+ID: u
+,
+KW: INT
+ID: v
+)
+{
+
+INPUT: if(v == >= 0) return/*a comment*/ u;
+KW: if
+(
+ID: v
+==
+>=
+INT: 0
+)
+KW: return
+ID: u
+;
+
+INPUT: else ret_urn gcd(vxxxxxxvvvvv, u-u/v*v);
+KW: else
+ID: ret
+Error: _urn
+ID: gcd
+(
+ID: vxxxxxxvvvvv
+,
+ID: u
+-
+ID: u
+/
+ID: v
+*
+ID: v
+)
+;
+INPUT: /* u-u/v*v == u mod v*/
+
+INPUT: !   
+Error: !
+INPUT: }
+}
+INPUT: return void while       void main()
+KW: return
+KW: void
+KW: while
+KW: void
+ID: main
+(
+)
+
+INPUT: !=
+!=
