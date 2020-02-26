@@ -3,14 +3,6 @@ import re as re
 import scanner
 import os
 
-## Check jons reject checks #14, #25
-
-# elif token_list_value[i] == ";":
-#     return
-
-# added to expressionPrime() and additiveExpressionPrimePrimePrime()
-# seems to fix issue with expressions -> semicolons were rejected
-# rejects "=" in expressions -> ex. a + b = c;
 
 # call scanner to generate token list
 scanner.scanner()
@@ -22,27 +14,30 @@ i = 0
 token_list_value = []
 # list of token types (same size as token_value_list)
 token_list_type = []
-with open("tokens.txt", "r") as f2:
-    tokens = f2.readlines()
-    for token in tokens:
-        # ex. KW: while, KW: int, ID: aaa
-        if(len(token.split(" ")) == 2):
-            # token value
-            token_value = token.split(" ")[1]
-            # token type (ID --> [a-zA-Z]+, INT --> [0-9]+)
-            token_type = token.split(" ")[0]
-        else:
-            token_value = token
-            token_type = token
-        token_value = token_value.strip()
-        token_type = token_type.strip()
+try:
+    with open("tokens.txt", "r") as f2:
+        tokens = f2.readlines()
+        for token in tokens:
+            # ex. KW: while, KW: int, ID: aaa
+            if(len(token.split(" ")) == 2):
+                # token value
+                token_value = token.split(" ")[1]
+                # token type (ID --> [a-zA-Z]+, INT --> [0-9]+)
+                token_type = token.split(" ")[0]
+            else:
+                token_value = token
+                token_type = token
+            token_value = token_value.strip()
+            token_type = token_type.strip()
 
-        # rebuild list of tokens without the token identifier i.e. remove "KW:" from "KW: while"
-        token_list_value.append(token_value)
-        token_list_type.append(token_type)
-# add "end of file" symbol 
-token_list_value.append("$")
-token_list_type.append("$")
+            # rebuild list of tokens without the token identifier i.e. remove "KW:" from "KW: while"
+            token_list_value.append(token_value)
+            token_list_type.append(token_type)
+    # add "end of file" symbol 
+    token_list_value.append("$")
+    token_list_type.append("$")
+except:
+    exit()
 #print(len(token_list_type))
 #print(len(token_list_value))
 #print(token_list_value)
@@ -53,7 +48,7 @@ def exitProgram():
     #print(i)
     print("REJECT")
     # identify token type that caused the error (for testing)
-    print("error at " + token_list_value[i])
+    #print("error at " + token_list_value[i])
     exit()
 
 # program() -> declaration() declarationList()
@@ -72,19 +67,19 @@ def declaration():
         i = i + 1
         if token_list_type[i] == "ID:":
             # consume 
-            print("I am in declaration() and my token is: " + token_list_value[i])
+            #print("I am in declaration() and my token is: " + token_list_value[i])
             i = i + 1
-            print("I am in declaration() and my token is: " + token_list_value[i])
+            #print("I am in declaration() and my token is: " + token_list_value[i])
             declarationPrime()
     elif token_list_value[i] == "void":
         # consume "void"
         i = i + 1
         #print(i)
         if token_list_type[i] == "ID:":
-            print("I am in declaration() and my token is: " + token_list_value[i])
+            #print("I am in declaration() and my token is: " + token_list_value[i])
             # consume ID
             i = i + 1
-            print("I am in declaration() and my token is: " + token_list_value[i])
+            #print("I am in declaration() and my token is: " + token_list_value[i])
             declarationPrime()
         else:
             exitProgram()
@@ -99,7 +94,7 @@ def declarationPrime():
     if token_list_value[i] == "(":
         funDeclaration()
     elif token_list_value[i] in [";", "["]:
-        print("I am in declarationPrime() and my token is: " + token_list_value[i])
+        #print("I am in declarationPrime() and my token is: " + token_list_value[i])
         varDeclaration()
     else:
         exitProgram()
@@ -107,7 +102,7 @@ def declarationPrime():
 # declarationList() -> declaration() declarationList() | EPSILON
 def declarationList():
     global i
-    print("I am in declarationList() and my token is: " + token_list_value[i])
+    #print("I am in declarationList() and my token is: " + token_list_value[i])
     if token_list_value[i] in ["int", "void"]:
         declaration()
         declarationList()
@@ -125,13 +120,13 @@ def funDeclaration():
     if token_list_value[i] == "(":
         # consume "("
         i = i + 1
-        print("I am in funDeclaration() and my token is: " + token_list_value[i])
+        #print("I am in funDeclaration() and my token is: " + token_list_value[i])
         params()
-        print("I am in funDeclaration() and my token is: " + token_list_value[i])
+        #print("I am in funDeclaration() and my token is: " + token_list_value[i])
         if token_list_value[i] == ")":
             # consume ")"
             i = i + 1
-            print("I am in funDeclaration() and my token is: " + token_list_value[i])
+            #print("I am in funDeclaration() and my token is: " + token_list_value[i])
             compoundStmt()
     else:
         exitProgram()
@@ -139,7 +134,7 @@ def funDeclaration():
 # varDeclaration() -> ; | [ NUM ] ;
 def varDeclaration():
     global i
-    print("I am in varDeclaration() and my token is: " + token_list_value[i])
+    #print("I am in varDeclaration() and my token is: " + token_list_value[i])
     if token_list_value[i] == ";":
         # consume ";"
         i = i + 1
@@ -169,20 +164,20 @@ def params():
     elif token_list_value[i] == "int":
         # consume "int"
         i = i + 1
-        print("I am in params() and my token is: " + token_list_value[i])
+        #print("I am in params() and my token is: " + token_list_value[i])
         paramsPrime()
     else:
-        print("error here")
+        #print("error here")
         exitProgram()
 
 # paramsPrime() -> ID param() paramList() | EPSILON
 def paramsPrime():
     global i
-    print("I am in paramsPrime() and my token type is: " + token_list_type[i])
+    #print("I am in paramsPrime() and my token type is: " + token_list_type[i])
     if token_list_type[i] == "ID:": 
         # consume ID:
         i = i + 1
-        print("I am in paramsPrime() and my token is: " + token_list_value[i])
+        #print("I am in paramsPrime() and my token is: " + token_list_value[i])
         param()
         paramList()
     # elif next token in follow(paramsPrime())
@@ -253,11 +248,11 @@ def compoundStmt():
     if token_list_value[i] == "{":
         # consume "{"
         i = i + 1
-        print("I am in compoundStmt() and my token is: " + token_list_value[i])
+        #print("I am in compoundStmt() and my token is: " + token_list_value[i])
         localDeclarations()
-        print("I am in compoundStmt() and my token is: " + token_list_value[i])
+        #print("I am in compoundStmt() and my token is: " + token_list_value[i])
         statementList()
-        print("I am in compoundStmt() and my token is: " + token_list_value[i])
+        #print("I am in compoundStmt() and my token is: " + token_list_value[i])
 
         if token_list_value[i] == "}":
             #print("I am in compoundStmt() and my token is: " + token_list_value[i])
@@ -269,7 +264,7 @@ def compoundStmt():
 # localDeclarations() -> int ID varDeclaration() localDeclarations() | void ID varDeclaration() localDeclarations() | EPSILON
 def localDeclarations():
     global i
-    print(token_list_type[i])
+    #print(token_list_type[i])
     if token_list_value[i] == "int":
         # consume "int"
         i = i + 1
@@ -277,7 +272,7 @@ def localDeclarations():
             # consume ID
             i = i + 1
             varDeclaration()
-            print("I am in localDeclarations() and my token is: " + token_list_value[i])
+            #print("I am in localDeclarations() and my token is: " + token_list_value[i])
             localDeclarations()
     elif token_list_value[i] == "void":
         # consume "void"
@@ -298,7 +293,7 @@ def statementList():
     global i
     # first(statement())
     if token_list_value[i] in [";", "(", "if", "return", "{", "while"] or token_list_type[i] in ["INT:", "ID:"]:
-        print("I am in statementList() and my token is: " + token_list_type[i])
+        #print("I am in statementList() and my token is: " + token_list_type[i])
         statement()
         statementList()
     # elif next token is in follow(statementList())
@@ -311,11 +306,11 @@ def statementList():
 def statement():
     global i
     if token_list_value[i] in [";", "("] or token_list_type[i] in ["INT:", "ID:"]:
-        print("I am in statement() and my token is: " + token_list_type[i])
+        #print("I am in statement() and my token is: " + token_list_type[i])
         expressionStmt()
-        print("I am in statement() and my token is: " + token_list_value[i])
+        #print("I am in statement() and my token is: " + token_list_value[i])
     elif token_list_value[i] == "{":
-        print("I am in statement() and my token is: " + token_list_value[i])
+        #print("I am in statement() and my token is: " + token_list_value[i])
         compoundStmt()
     elif token_list_value[i] == "if":
         #print("I am in statement() and my token is: " + token_list_value[i])
@@ -332,7 +327,7 @@ def expressionStmt():
     global i
     #print("I am in expressionStmt() and my token is: " + token_list_type[i])
     if token_list_value[i] == "(" or token_list_type[i] in ["INT:", "ID:"]:
-        print("I am in expressionStmt() and my token is: " + token_list_value[i])
+        #print("I am in expressionStmt() and my token is: " + token_list_value[i])
         expression()
         if token_list_value[i] == ";":
             # consume ";"
@@ -354,17 +349,17 @@ def selectionStmt():
         if token_list_value[i] == "(":
             # consume "("
             i = i + 1
-            print("usybecukby")
+            #print("usybecukby")
             expression()
         #print("I am in selectionStmt() and my token is: " + token_list_value[i])
-        print("I am in selectionStmt() and my token is: " + token_list_value[i])
+        #print("I am in selectionStmt() and my token is: " + token_list_value[i])
         if token_list_value[i] == ")":
             # consume ")"
             i = i + 1
             statement()
             selectionStmtPrime()
     else:
-        print("this is where the error is")
+        #print("this is where the error is")
         exitProgram()
 
 # selectionStmtPrime() -> else statement() | EPSILON
@@ -424,11 +419,11 @@ def returnStmtPrime():
 # expression() -> ID expressionPrime() | simpleExpression()
 def expression():
     global i
-    print("I am in expression() and my token is: " + token_list_value[i])
+    #print("I am in expression() and my token is: " + token_list_value[i])
     if token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
-        print("I am in expression() and my token is: " + token_list_value[i])
+        #print("I am in expression() and my token is: " + token_list_value[i])
         expressionPrime()
         if token_list_value[i] in [",", ")", "]", ";"]:
             return
@@ -444,14 +439,14 @@ def expression():
 # expressionPrime() -> var() expressionPrimePrime() | factorPrime() term() additiveExpressionPrime() simpleExpressionPrime() ******
 def expressionPrime():
     global i
-    print("I am in expressionPrime() and my token value is: " + token_list_value[i])
+    #print("I am in expressionPrime() and my token value is: " + token_list_value[i])
     # if token in first(var())
     #print("I am in expressionPrime() and my token is: " + token_list_value[i])
     if token_list_value[i] in ["[", "=", "*", "/", "<=", "<", ">", ">=", "==", "!=", "+", "-"]:
         var()
-        print("I am in expressionPrime() and my token is: " + token_list_value[i])
+        #print("I am in expressionPrime() and my token is: " + token_list_value[i])
         expressionPrimePrime()
-        print("I am in expressionPrime() and my token is: " + token_list_value[i])
+        #print("I am in expressionPrime() and my token is: " + token_list_value[i])
     elif token_list_value[i] == "(":
         factorPrime()
         term()
@@ -468,7 +463,7 @@ def expressionPrime():
 # expressionPrimePrime() -> = expression() | term() additiveExpressionPrime() simpleExpressionPrime()
 def expressionPrimePrime():
     global i
-    print("I am in expressionPrimePrime() and my token is: " + token_list_value[i])
+    #print("I am in expressionPrimePrime() and my token is: " + token_list_value[i])
     if token_list_value[i] == "=":
         # consume "="
         i = i + 1
@@ -476,16 +471,16 @@ def expressionPrimePrime():
     # if next token is in first(term())
     elif token_list_value[i] in ["*", "/", "+", "-", "<=", "<", ">", ">=", "==", "!="]:
         term()
-        print("I have just left term() and my token is " + token_list_value[i])
+        #print("I have just left term() and my token is " + token_list_value[i])
         additiveExpressionPrime()
-        print("I have just left additiveExpressionPrime() " + token_list_value[i])
+        #print("I have just left additiveExpressionPrime() " + token_list_value[i])
         simpleExpressionPrime()
-        print("I have just left simpleExpressionPrime() " + token_list_value[i])
+        #print("I have just left simpleExpressionPrime() " + token_list_value[i])
     # elif next token is in follow(expressionPrimePrime())
     elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
     else:
-        print("error in expressionPrimePrime()")
+        #print("error in expressionPrimePrime()")
         exitProgram() 
 
 # var() -> [ expression() ] | EPSILON ***
@@ -495,12 +490,12 @@ def var():
     if token_list_value[i] == "[":
         # consume "["
         i = i + 1
-        print("I am in var() and my token is: " + token_list_value[i])
+        #print("I am in var() and my token is: " + token_list_value[i])
         expression()
-        print("I am in var() and my token is: " + token_list_value[i])
+        #print("I am in var() and my token is: " + token_list_value[i])
         # consume "]"
         i = i + 1
-        print("I am in var() and my token is: " + token_list_value[i])
+        #print("I am in var() and my token is: " + token_list_value[i])
     # elif next token in follow(var())
     elif token_list_value[i] in ["*", "/", "+", "-", "=", "<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
@@ -535,9 +530,9 @@ def simpleExpressionPrimePrime():
     elif token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
-        print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
+        #print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
         simpleExpressionPrimePrimePrime()
-        print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
+        #print("I am in simpleExpressionPrimePrime() and my token is " + token_list_value[i])
     else:
         exitProgram()
 
@@ -580,11 +575,11 @@ def additiveExpression():
 def additiveExpressionPrime():
     global i
     if token_list_value[i] in ["+", "-"]:
-        print("I am in additiveExpressionPrime() and my token is " + token_list_value[i])
+        #print("I am in additiveExpressionPrime() and my token is " + token_list_value[i])
         addop()
-        print("I am in additiveExpressionPrime() and my token is " + token_list_value[i])
+        #print("I am in additiveExpressionPrime() and my token is " + token_list_value[i])
         additiveExpressionPrimePrime()
-        print("I have just left additiveExpressionPrimePrime and my token is: " + token_list_value[i])
+        #print("I have just left additiveExpressionPrimePrime and my token is: " + token_list_value[i])
     # next token in follow(additiveExpressionPrime())
     elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
@@ -595,7 +590,7 @@ def additiveExpressionPrime():
 # additiveExpressionPrimePrime() -> factor() term() additiveExpressionPrime() | ID additiveExpressionPrimePrimePrime()
 def additiveExpressionPrimePrime():
     global i
-    print("I am in addExpPrimePrime() and my token is " + token_list_type[i])
+    #print("I am in addExpPrimePrime() and my token is " + token_list_type[i])
     if token_list_value[i] == "(" or token_list_type[i] == "INT:":
         factor()
         term()
@@ -603,7 +598,7 @@ def additiveExpressionPrimePrime():
     elif token_list_type[i] == "ID:":
         # consume ID
         i = i + 1
-        print("I am in addExpPrimePrime() and my token is " + token_list_value[i])
+        #print("I am in addExpPrimePrime() and my token is " + token_list_value[i])
         additiveExpressionPrimePrimePrime()
     # elif token_list_value[i] in ["(", "[", "+", "-", "*", "/"]:
     #     additiveExpressionPrimePrimePrime()
@@ -613,7 +608,7 @@ def additiveExpressionPrimePrime():
 # additiveExpressionPrimePrimePrime() -> factorPrime() term() additiveExpressionPrime() | var() term() additiveExpressionPrime() ****
 def additiveExpressionPrimePrimePrime():
     global i
-    print("I am in addExprPrimePrimePrime() and my token is " + token_list_value[i])
+    #print("I am in addExprPrimePrimePrime() and my token is " + token_list_value[i])
     # if next token in first(factorPrime())
     if token_list_value[i] == "(":
         factorPrime()
@@ -627,7 +622,7 @@ def additiveExpressionPrimePrimePrime():
     elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
         return
     else:
-        print("error in additiveExpressionPrimePrimePrime()")
+        #print("error in additiveExpressionPrimePrimePrime()")
         exitProgram()
 
 # addop() -> + | -
@@ -646,7 +641,7 @@ def addop():
 # A butt lives here
 def term():
     global i
-    print(token_list_value[i])
+    #print(token_list_value[i])
     # if next token in first(mulop())
     if token_list_value[i] in ["*", "/"]:
         mulop()
@@ -721,7 +716,7 @@ def factorPrime():
     if token_list_value[i] == "(":
         # consume "("
         i = i + 1
-        print("akjwnvijn " + token_list_value[i])
+        #print("akjwnvijn " + token_list_value[i])
         args()
         if token_list_value[i] == ")":
             # consume ")"
@@ -734,7 +729,7 @@ def args():
     global i
     if token_list_value[i] == "(" or token_list_type[i] in ["ID:", "INT:"]:
         expression()
-        print("I have just left expression")
+        #print("I have just left expression")
         argList()
     # elif next token in follow(args())
     elif token_list_value[i] == ")":
