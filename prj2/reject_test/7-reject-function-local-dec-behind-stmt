@@ -1,5 +1,0 @@
-void main(void) {
-	int x;
-	x = 4;
-	int y;
-}
