@@ -55,7 +55,7 @@
 %token DIVIDEBY
 %%
 
-start : expression { printf("\nACCEPT\n"); return;};
+start : expression {};
 expression  : oneRelationExpression {};
             | twoRelationExpression {};
 oneRelationExpression   : renaming {};
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
       exit(0);
    }
    yyparse();
-   //printf("\nACCEPT\n");
+   printf("\nACCEPT\n");
 }
 yyerror()
 {
@@ -128,6 +128,6 @@ yyerror()
 }
 yywrap()
 {
-   return;
+   printf("\nin yywrap\n");
    exit(0);
 }
