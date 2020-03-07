@@ -1,0 +1,6 @@
+#!/bin/bash
+python parser.py $1
+if [ -f "tokens.txt" ]; then
+	rm tokens.txt
+fi
+

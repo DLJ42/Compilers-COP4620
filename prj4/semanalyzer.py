@@ -3,13 +3,18 @@ import re as re
 import scanner
 import os
 
-
 # call scanner to generate token list
 scanner.scanner()
 #print("- - - - - - - - - - - - - - - - - - - - - - -")
 # keep track of current token being evaluated
 global i
 i = 0
+# keep track of current scope
+global x
+x = 0
+
+sym_table = [[{'sym_name': None, 'sym_val': None, 'sym_attr': None}]]
+
 # list of tokens' value
 token_list_value = []
 # list of token types (same size as token_value_list)
@@ -45,6 +50,7 @@ except:
 
 def exitProgram():
     global i
+    global x
     #print(i)
     print("REJECT")
     # identify token type that caused the error (for testing)
@@ -54,6 +60,7 @@ def exitProgram():
 # program() -> declaration() declarationList()
 def program():
     global i
+    global x
     #print(i)
     declaration()
     declarationList()
@@ -61,11 +68,14 @@ def program():
 # declaration() -> int ID declarationPrime() | void ID declarationPrime()
 def declaration():
     global i
+    global x
+    global sym_table
     #print(i)
     if token_list_value[i] == "int":
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
+            sym_table.append({'sym_nam': token_list_value[i], 'sym_type': 'int', 'sym_attr': None})
             # consume 
             #print("I am in declaration() and my token is: " + token_list_value[i])
             i = i + 1
@@ -76,6 +86,7 @@ def declaration():
         i = i + 1
         #print(i)
         if token_list_type[i] == "ID:":
+            sym_table.append({'sym_nam': token_list_value[i], 'sym_type': 'void', 'sym_attr': None})
             #print("I am in declaration() and my token is: " + token_list_value[i])
             # consume ID
             i = i + 1
@@ -89,9 +100,12 @@ def declaration():
 # declarationPrime() -> funDeclaration() | varDeclaration()  
 def declarationPrime():
     global i
+    global x
+    global sym_table
     #print(i)
     # look 1 symbol ahead to decide which function to call
     if token_list_value[i] == "(":
+        sym_table[x].dict['sym_attr'] = 'function'
         funDeclaration()
     elif token_list_value[i] in [";", "["]:
         #print("I am in declarationPrime() and my token is: " + token_list_value[i])
@@ -117,10 +131,13 @@ def declarationList():
 # funDeclaration() -> ( params() ) compoundStmt() 
 def funDeclaration():
     global i
+    global x
+    global sym_table
     if token_list_value[i] == "(":
         # consume "("
         i = i + 1
         #print("I am in funDeclaration() and my token is: " + token_list_value[i])
+        sym_table[x].dict.update('parameters')
         params()
         #print("I am in funDeclaration() and my token is: " + token_list_value[i])
         if token_list_value[i] == ")":
@@ -159,6 +176,7 @@ def params():
     #print("I am in params() and my token is: " + token_list_value[i])
     if token_list_value[i] == "void":
         # consume "void"
+        sym_table.append({'sym_name': 'void', 'sym_type': 'KW', 'sym_attr': None})
         i = i + 1
         paramsPrime()
     elif token_list_value[i] == "int":
@@ -477,7 +495,7 @@ def expressionPrimePrime():
         simpleExpressionPrime()
         #print("I have just left simpleExpressionPrime() " + token_list_value[i])
     # elif next token is in follow(expressionPrimePrime())
-    elif token_list_value[i] in ["<=", "<", ">", ">=", "==", "!=", ",", ")", "]", ";"]:
+    elif token_list_value[i] in [",", ")", "]", ";"]:
         return
     else:
         #print("error in expressionPrimePrime()")
