@@ -45,20 +45,20 @@
 %token P 
 %token SP 
 %token PRDCT 
-%token CUST 
+%token CUST
 %token ORDERS
-%token UNION 
+%token UNION
 %token INTERSECT
 %token MINUS
-%token TIMES 
+%token TIMES
 %token JOIN
-%token DIVIDEBY     
+%token DIVIDEBY
 %%
 
-start : expression { printf("ACCEPT"); return;};
+start : expression { printf("\nACCEPT\n"); return;};
 expression  : oneRelationExpression {};
-            | twoRelationExpression {}; 
-oneRelationExpression   : renaming {}; 
+            | twoRelationExpression {};
+oneRelationExpression   : renaming {};
                         | restriction {};
                         | projection {};
 renaming : term RENAME attribute AS attribute {};
