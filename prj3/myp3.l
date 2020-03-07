@@ -50,4 +50,6 @@ num     [0-9]
 "TIMES" {return(TIMES);}
 "JOIN" {return(JOIN);}
 "DIVIDEBY" {return(DIVIDEBY);}
+.	     return yytext[0];
+"\n"          return(0);
 %%
