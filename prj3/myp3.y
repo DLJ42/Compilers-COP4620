@@ -6,10 +6,10 @@
     extern FILE *yyin;
 %}
 
-%start      start
-%token LT      
-%token GT 
-%token LTGT 
+%start start
+%token LT
+%token GT
+%token LTGT
 %token LTE 
 %token GTE 
 %token EQ 
@@ -55,7 +55,7 @@
 %token DIVIDEBY     
 %%
 
-start : expression {};
+start : expression { printf("ACCEPT"); return;};
 expression  : oneRelationExpression {};
             | twoRelationExpression {}; 
 oneRelationExpression   : renaming {}; 
@@ -76,21 +76,21 @@ binaryOperation   : UNION
                   | TIMES
                   | JOIN
                   | DIVIDEBY
-comparison  : attribute compare number {};    
-compare  : LT 
+comparison  : attribute compare number {};
+compare  : LT
          | GT
          | LTE
-         | GTE 
+         | GTE
          | EQ
-         | LTGT 
-number   : val                                     {
+         | LTGT
+number   : val
          | val number {};
 val   : NUM
 attribute   : CNO
             | CITY
             | CNAME
             | SNO
-            | PNO 
+            | PNO
             | TQTY
             | SNAME
             | QUOTA
@@ -103,7 +103,7 @@ attribute   : CNO
             | COLOR
             | WEIGHT
             | QTY
-relation : S 
+relation : S
          | P
          | SP
          | PRDCT
@@ -123,7 +123,6 @@ int main(int argc, char *argv[])
 }
 yyerror()
 {
-   return;
    printf("error from yyerror\n");
    exit(0);
 }
