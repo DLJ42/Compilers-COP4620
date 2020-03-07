@@ -1,6 +1,6 @@
 %{
 #include "myp3.tab.h"
-extern int yyval;
+extern int yylval;
 %}
 num     [0-9]
 %%
