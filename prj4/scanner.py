@@ -11,8 +11,7 @@ special = (";", ",", "(", ")", "[", "]", "{", "}", "/*", "*/", "//")
 def scanner():
     try:
         input_file = sys.argv[1]
-        
-        # Read each input line into variable 
+        # Read each input line into variable
         with open(input_file, "r") as f:
             input_code = f.readlines()
 

@@ -9,11 +9,12 @@ scanner.scanner()
 # keep track of current token being evaluated
 global i
 i = 0
-# keep track of current scope
+# keep track of current scope (each function declaration is new scope)
 global x
 x = 0
 
-sym_table = [[{'sym_name': None, 'sym_val': None, 'sym_attr': None}]]
+# search within different scopes using dictionary key values i.e. sym_name = func name && sym_attr is function
+sym_table = []
 
 # list of tokens' value
 token_list_value = []
@@ -69,14 +70,13 @@ def program():
 def declaration():
     global i
     global x
-    global sym_table
     #print(i)
     if token_list_value[i] == "int":
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
-            sym_table.append({'sym_nam': token_list_value[i], 'sym_type': 'int', 'sym_attr': None})
-            # consume 
+            # symbol name is value of token ID
+            # consume
             #print("I am in declaration() and my token is: " + token_list_value[i])
             i = i + 1
             #print("I am in declaration() and my token is: " + token_list_value[i])
@@ -86,7 +86,7 @@ def declaration():
         i = i + 1
         #print(i)
         if token_list_type[i] == "ID:":
-            sym_table.append({'sym_nam': token_list_value[i], 'sym_type': 'void', 'sym_attr': None})
+            # symbol name is value of token ID
             #print("I am in declaration() and my token is: " + token_list_value[i])
             # consume ID
             i = i + 1
@@ -101,13 +101,26 @@ def declaration():
 def declarationPrime():
     global i
     global x
-    global sym_table
     #print(i)
-    # look 1 symbol ahead to decide which function to call
+    # function declaration/call 
     if token_list_value[i] == "(":
-        sym_table[x].dict['sym_attr'] = 'function'
+        if len(sym_table) > 0:
+            for val in sym_table:
+                if val['sym_name'] == token_list_value[i-1]:
+                    print("function already exists")
+                else:
+                    print("function does not exist in symbol table")
+                    sym_table.append({'sym_name': [token_list_value[i-1]], 'sym_type': [token_list_value[i-2]], 'sym_attr': ["function"]})
+                    break
+        #print("empty symbol table")
+        else:
+            sym_table.append({'sym_name': [token_list_value[i-1]], 'sym_type': [token_list_value[i-2]], 'sym_attr': ["function"]})
         funDeclaration()
+    # var declaration
     elif token_list_value[i] in [";", "["]:
+        sym_table[x]['sym_name'].append(token_list_value[i-1])
+        sym_table[x]['sym_type'].append(token_list_value[i-2])
+        sym_table[x]['sym_attr'].append(None)
         #print("I am in declarationPrime() and my token is: " + token_list_value[i])
         varDeclaration()
     else:
@@ -123,21 +136,21 @@ def declarationList():
     # if rule contains empty, check first of follow sets e.g. first of follow set of declarationList is "$"
     # if we hit dollar sign we accept
     elif token_list_value[i] in "$":
+        for val in sym_table:
+            print(val)
         print("ACCEPT")
         exit()
     else:
         exitProgram()
 
-# funDeclaration() -> ( params() ) compoundStmt() 
+# funDeclaration() -> ( params() ) compoundStmt()
 def funDeclaration():
     global i
     global x
-    global sym_table
     if token_list_value[i] == "(":
         # consume "("
         i = i + 1
         #print("I am in funDeclaration() and my token is: " + token_list_value[i])
-        sym_table[x].dict.update('parameters')
         params()
         #print("I am in funDeclaration() and my token is: " + token_list_value[i])
         if token_list_value[i] == ")":
@@ -145,6 +158,7 @@ def funDeclaration():
             i = i + 1
             #print("I am in funDeclaration() and my token is: " + token_list_value[i])
             compoundStmt()
+            x = x + 1
     else:
         exitProgram()
 
@@ -173,14 +187,20 @@ def varDeclaration():
 # params() -> void paramsPrime() | int paramsPrime()
 def params():
     global i
+    global x
     #print("I am in params() and my token is: " + token_list_value[i])
     if token_list_value[i] == "void":
         # consume "void"
-        sym_table.append({'sym_name': 'void', 'sym_type': 'KW', 'sym_attr': None})
+        # add parameter to symbol table
+        print(x)
+        sym_table[x]['sym_type'].append('void')
+        sym_table[x]['sym_attr'].append('parameter')
         i = i + 1
         paramsPrime()
     elif token_list_value[i] == "int":
         # consume "int"
+        sym_table[x]['sym_type'].append('int')
+        sym_table[x]['sym_attr'].append('parameter')
         i = i + 1
         #print("I am in params() and my token is: " + token_list_value[i])
         paramsPrime()
@@ -191,9 +211,11 @@ def params():
 # paramsPrime() -> ID param() paramList() | EPSILON
 def paramsPrime():
     global i
+    global x
     #print("I am in paramsPrime() and my token type is: " + token_list_type[i])
     if token_list_type[i] == "ID:": 
         # consume ID:
+        sym_table[x]['sym_name'].append(token_list_value[i])
         i = i + 1
         #print("I am in paramsPrime() and my token is: " + token_list_value[i])
         param()
@@ -207,8 +229,10 @@ def paramsPrime():
 # paramList() -> , paramListPrime() | EPSILON
 def paramList():
     global i
+    global x
     if token_list_value[i] == ",":
         # consume ","
+        # add another parameter to symbol table
         i = i + 1
         paramListPrime()
     # follow of paramList is in follow of paramsPrime()
@@ -220,11 +244,15 @@ def paramList():
 # paramListPrime() -> int ID param() paramList() | void ID param() paramList()
 def paramListPrime():
     global i
+    global x
     if token_list_value[i] == "int":
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
             # consume ID
+            sym_table[x]['sym_type'].append('int')
+            sym_table[x]['sym_name'].append(token_list_value[i])
+            sym_table[x]['sym_attr'].append('parameter')
             i = i + 1
         else:
             exitProgram()
@@ -234,6 +262,9 @@ def paramListPrime():
         # consume void
         i = i + 1
         if token_list_type[i] == "ID:":
+            sym_table[x]['sym_type'].append('int')
+            sym_table[x]['sym_name'].append(token_list_value[i])
+            sym_table[x]['sym_attr'].append('parameter')
             # consume ID
             i = i + 1
         else:
@@ -246,10 +277,13 @@ def paramListPrime():
 # param() -> [ ] | EPSILON
 def param():
     global i
+    global x
     if token_list_value[i] == "[":
         # consume "["
+        sym_table[x]['sym_type'][-1].append("[")
         i = i + 1
         if token_list_value[i] == "]":
+            sym_table[x]['sym_type'][-1].append("]")
             # consume "]"
             i = i + 1
         else:
@@ -263,7 +297,9 @@ def param():
 # compoundStmt() -> { localDeclarations() statementList() }
 def compoundStmt():
     global i
+    global x
     if token_list_value[i] == "{":
+
         # consume "{"
         i = i + 1
         #print("I am in compoundStmt() and my token is: " + token_list_value[i])
