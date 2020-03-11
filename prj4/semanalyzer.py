@@ -75,7 +75,6 @@ def declaration():
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
-            # symbol name is value of token ID
             # consume
             #print("I am in declaration() and my token is: " + token_list_value[i])
             i = i + 1
@@ -104,15 +103,20 @@ def declarationPrime():
     #print(i)
     # function declaration/call 
     if token_list_value[i] == "(":
+        # if the length of the symbol table is greater than 0, check each scope for function being called
         if len(sym_table) > 0:
+            # check symbol table to see if this function already exists
             for val in sym_table:
+                # if the function being called/declared already exists in the symbol table
                 if val['sym_name'] == token_list_value[i-1]:
                     print("function already exists")
+                # if function does not already exist in the symbol table, create it
                 else:
                     print("function does not exist in symbol table")
                     sym_table.append({'sym_name': [token_list_value[i-1]], 'sym_type': [token_list_value[i-2]], 'sym_attr': ["function"]})
                     break
         #print("empty symbol table")
+        # if the symbol table does not have any entries, create the first
         else:
             sym_table.append({'sym_name': [token_list_value[i-1]], 'sym_type': [token_list_value[i-2]], 'sym_attr': ["function"]})
         funDeclaration()
@@ -191,16 +195,10 @@ def params():
     #print("I am in params() and my token is: " + token_list_value[i])
     if token_list_value[i] == "void":
         # consume "void"
-        # add parameter to symbol table
-        print(x)
-        sym_table[x]['sym_type'].append('void')
-        sym_table[x]['sym_attr'].append('parameter')
         i = i + 1
         paramsPrime()
     elif token_list_value[i] == "int":
         # consume "int"
-        sym_table[x]['sym_type'].append('int')
-        sym_table[x]['sym_attr'].append('parameter')
         i = i + 1
         #print("I am in params() and my token is: " + token_list_value[i])
         paramsPrime()
@@ -214,8 +212,10 @@ def paramsPrime():
     global x
     #print("I am in paramsPrime() and my token type is: " + token_list_type[i])
     if token_list_type[i] == "ID:": 
-        # consume ID:
         sym_table[x]['sym_name'].append(token_list_value[i])
+        sym_table[x]['sym_type'].append(token_list_value[i-1])
+        sym_table[x]['sym_attr'].append('parameter')
+        # consume ID:
         i = i + 1
         #print("I am in paramsPrime() and my token is: " + token_list_value[i])
         param()
@@ -249,10 +249,11 @@ def paramListPrime():
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
-            # consume ID
+            # add parameter to symbol table
             sym_table[x]['sym_type'].append('int')
             sym_table[x]['sym_name'].append(token_list_value[i])
             sym_table[x]['sym_attr'].append('parameter')
+            # consume ID
             i = i + 1
         else:
             exitProgram()
@@ -262,6 +263,7 @@ def paramListPrime():
         # consume void
         i = i + 1
         if token_list_type[i] == "ID:":
+            # add parameter to symbol table
             sym_table[x]['sym_type'].append('int')
             sym_table[x]['sym_name'].append(token_list_value[i])
             sym_table[x]['sym_attr'].append('parameter')
@@ -323,6 +325,10 @@ def localDeclarations():
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
+            # add local declaration to symbol table
+            sym_table[x]['sym_type'].append('int')
+            sym_table[x]['sym_name'].append(token_list_value[i])
+            sym_table[x]['sym_attr'].append('local declaration')
             # consume ID
             i = i + 1
             varDeclaration()
@@ -332,6 +338,10 @@ def localDeclarations():
         # consume "void"
         i = i + 1
         if token_list_type[i] == "ID:":
+            # add local declaration to symbol table
+            sym_table[x]['sym_type'].append('void')
+            sym_table[x]['sym_name'].append(token_list_value[i])
+            sym_table[x]['sym_attr'].append('local declaration')    
             # consume ID
             i = i + 1
             varDeclaration()
