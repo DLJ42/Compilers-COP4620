@@ -17,7 +17,6 @@
 
 * when a function call is made, append the arguments (parameters) given to the dictionary fields of the respective function scope
 * if function call is used in an assignment expression, use the return value of the function called
-* 
 
 ### nested scope i.e. functions declared within function 
 
