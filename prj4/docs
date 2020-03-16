@@ -1,7 +1,0 @@
-# semantic analyszer for C Minus language
-# Uses a list of lists of dictionaries
-## each list of dictionaries defines a scope 
-### the first dictionary in each list will define the name of the scope/function
-
-ex. [[dict1(func declaration), dict2(local declarations), dict3, dict4,etc..], [dict1(func declcaration), dict2, etc..]]
-[[scope1], [scope2], [scope3]]
