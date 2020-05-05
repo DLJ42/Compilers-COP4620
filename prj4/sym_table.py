@@ -13,6 +13,10 @@ i = 0
 global x
 x = 0
 
+# keep track of local scope (functions declared within functions)
+global y
+y = 0
+
 # expressions can be of any size any form, so they are created dynamically during semantic analysis
 global expression
 expression = ""
@@ -131,9 +135,9 @@ def declarationPrime():
     # var declaration
     elif token_list_value[i] in [";", "["]:
 
-        sym_table[x]['sym_name'].append(token_list_value[i-1])
-        sym_table[x]['sym_type'].append(token_list_value[i-2])
-        sym_table[x]['sym_attr'].append(None)
+        sym_table[x][y]['sym_name'].append(token_list_value[i-1])
+        sym_table[x][y]['sym_type'].append(token_list_value[i-2])
+        sym_table[x][y]['sym_attr'].append(None)
         varDeclaration()
     else:
         exitProgram()
@@ -219,10 +223,11 @@ def params():
 def paramsPrime():
     global i
     global x
+    global y
     if token_list_type[i] == "ID:":
-        sym_table[x]['sym_name'].append(token_list_value[i])
-        sym_table[x]['sym_type'].append(token_list_value[i-1])
-        sym_table[x]['sym_attr'].append('parameter')
+        sym_table[x][y]['sym_name'].append(token_list_value[i])
+        sym_table[x][y]['sym_type'].append(token_list_value[i-1])
+        sym_table[x][y]['sym_attr'].append('parameter')
         # consume ID:
         i = i + 1
         param()
@@ -252,14 +257,15 @@ def paramList():
 def paramListPrime():
     global i
     global x
+    global y
     if token_list_value[i] == "int":
         # consume "int"
         i = i + 1
         if token_list_type[i] == "ID:":
             # add parameter to symbol table
-            sym_table[x]['sym_type'].append('int')
-            sym_table[x]['sym_name'].append(token_list_value[i])
-            sym_table[x]['sym_attr'].append('parameter')
+            sym_table[x][y]['sym_type'].append('int')
+            sym_table[x][y]['sym_name'].append(token_list_value[i])
+            sym_table[x][y]['sym_attr'].append('parameter')
             # consume ID
             i = i + 1
         else:
@@ -271,9 +277,9 @@ def paramListPrime():
         i = i + 1
         if token_list_type[i] == "ID:":
             # add parameter to symbol table
-            sym_table[x]['sym_type'].append('int')
-            sym_table[x]['sym_name'].append(token_list_value[i])
-            sym_table[x]['sym_attr'].append('parameter')
+            sym_table[x][y]['sym_type'].append('int')
+            sym_table[x][y]['sym_name'].append(token_list_value[i])
+            sym_table[x][y]['sym_attr'].append('parameter')
             # consume ID
             i = i + 1
         else:

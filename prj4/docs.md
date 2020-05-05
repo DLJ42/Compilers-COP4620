@@ -47,3 +47,7 @@
 
 ex. [[dict1(func declaration), dict2(local declarations), dict3, dict4,etc..], [dict1(func declcaration), dict2, etc..]]
 [[scope1], [scope2], [scope3]]
+
+
+## types of statements in c-
+
